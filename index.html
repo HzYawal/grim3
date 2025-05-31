@@ -9,6 +9,9 @@
     <script src="https://unpkg.com/i18next-http-backend/i18nextHttpBackend.min.js"></script>
     <script src="https://unpkg.com/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js"></script>
 
+    <!-- Font Awesome CDN 링크 추가 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <title data-i18n="site_title">HZMindCare</title>
     <link rel="stylesheet" href="style.css">
 
@@ -36,7 +39,7 @@
         <main>
             <section class="controls-section">
                 <h2 data-i18n="section_title_setup">사운드 선택 및 설정</h2>
-
+                <!-- ... (컨트롤 섹션 내용은 이전과 동일) ... -->
                 <div class="control-group">
                     <label for="goal-select" data-i18n="label_recommended_sound">추천 사운드:</label>
                     <select id="goal-select">
@@ -86,7 +89,6 @@
                 </div>
             </section>
 
-            <!-- 오디오 시각화 Canvas (크기 약간 조정) -->
             <section class="visualizer-section" style="margin-top: 20px; margin-bottom: 10px; display: none;">
                 <canvas id="audioVisualizer" width="600" height="120"></canvas>
             </section>
@@ -101,10 +103,121 @@
             </section>
         </main>
 
+        <!-- ================================================== -->
+        <!-- ========= 하단 상세 정보 섹션 시작 (Font Awesome 아이콘 적용) ========= -->
+        <!-- ================================================== -->
+        <section id="hz-info-detailed-section" class="info-container">
+            <div class="info-header">
+                <h2 data-i18n="info_main_title">HZMindCare: 당신의 마음을 위한 특별한 주파수 여정</h2>
+                <p data-i18n="info_main_subtitle">최초의 HZMindCare 웹사이트에서 뇌파 동조의 신비로운 세계를 경험하고 삶의 질을 향상시켜 보세요.</p>
+            </div>
+
+            <!-- 기능 및 장점 소개 -->
+            <div class="features-grid">
+                <h3 class="section-title" data-i18n="info_features_title">HZMindCare 주요 기능 및 장점</h3>
+                <div class="feature-item">
+                    <i class="fas fa-wave-square fa-2x feature-icon-fa"></i> <!-- Font Awesome 아이콘 -->
+                    <div>
+                        <h4 data-i18n="feature_various_hz_title">다양한 뇌파 및 특수 주파수 제공</h4>
+                        <p data-i18n="feature_various_hz_desc">델타, 세타, 알파, 베타, 감마파부터 솔페지오, 432Hz까지 폭넓은 선택지를 제공하여 개인의 목적에 맞는 최적의 주파수를 찾을 수 있도록 돕습니다.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-sliders-h fa-2x feature-icon-fa"></i> <!-- Font Awesome 아이콘 -->
+                    <div>
+                        <h4 data-i18n="feature_custom_sound_title">원하는 소리 직접 만들기</h4>
+                        <p data-i18n="feature_custom_sound_desc">단순 프리셋 제공을 넘어, 효과 주파수와 기본음을 직접 조절하여 자신에게 가장 잘 맞는 사운드를 정교하게 만들 수 있는 강력한 커스터마이징 기능을 제공합니다.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-mouse-pointer fa-2x feature-icon-fa"></i> <!-- Font Awesome 아이콘 -->
+                    <div>
+                        <h4 data-i18n="feature_easy_ui_title">직관적이고 사용하기 쉬운 인터페이스</h4>
+                        <p data-i18n="feature_easy_ui_desc">복잡한 설정 없이 누구나 쉽게 원하는 주파수를 선택하고 재생할 수 있도록 심플하고 명확한 UI/UX를 제공합니다. 한국어와 영어 지원으로 더욱 편리하게 사용하세요.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-chart-line fa-2x feature-icon-fa"></i> <!-- Font Awesome 아이콘 -->
+                    <div>
+                        <h4 data-i18n="feature_visualization_title">실시간 오디오 시각화</h4>
+                        <p data-i18n="feature_visualization_desc">현재 재생 중인 사운드의 주파수를 시각적으로 표현하여 청각적 경험뿐만 아니라 시각적인 만족감과 이해를 돕습니다. (향후 커스터마이징 기능 확장 예정)</p>
+                    </div>
+                </div>
+                 <div class="feature-item">
+                    <i class="fas fa-gamepad fa-2x feature-icon-fa"></i> <!-- Font Awesome 아이콘 -->
+                    <div>
+                        <h4 data-i18n="feature_gamer_focus_title">게이머를 위한 집중력 및 반응속도 향상 (목표)</h4>
+                        <p data-i18n="feature_gamer_focus_desc">특정 주파수(예: 베타파, 감마파)를 통해 게임 플레이 시 집중력과 반응 속도 향상에 도움을 줄 수 있도록 연구하고 있습니다. "게이머에게 맞는 Hz를 찾으세요!"</p>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="info-divider">
+
+            <!-- HZ 사운드 및 뇌파 동조 원리 설명 -->
+            <article class="info-article">
+                <h3 class="section-title" data-i18n="info_what_is_hz_title">HZ 사운드와 뇌파 동조란 무엇인가요?</h3>
+                <p data-i18n="info_hz_intro">HZMindCare에서 제공하는 HZ 사운드는 특정 주파수를 가진 소리를 의미하며, 이를 통해 사용자의 뇌파를 원하는 상태로 유도하는 것을 목표로 합니다. 이러한 현상을 '뇌파 동조(Brainwave Entrainment)'라고 합니다.</p>
+                <p data-i18n="info_binaural_intro">가장 대표적인 방법 중 하나는 '바이노럴 비트(Binaural Beats)'입니다. 이는 양쪽 귀에 약간 다른 주파수의 소리를 동시에 들려주었을 때, 뇌에서 두 주파수의 차이에 해당하는 새로운 주파수를 인지하는 원리를 이용합니다. 예를 들어 왼쪽 귀에 100Hz, 오른쪽 귀에 105Hz를 들려주면 뇌는 5Hz의 파동을 느끼게 됩니다.</p>
+                <div class="info-image-container">
+                    <!-- 바이노럴 비트 원리 도식 이미지는 그대로 사용하거나, CSS로 표현하기 어려우므로 유지하는 것이 좋음 -->
+                    <img src="images/binaural_beats_diagram.png" alt="바이노럴 비트 원리 도식" class="info-image">
+                    <p class="caption" data-i18n="info_binaural_diagram_caption">바이노럴 비트 생성 원리 예시</p>
+                </div>
+                <p data-i18n="info_brainwave_types_intro">우리의 뇌는 활동 상태에 따라 다양한 뇌파를 발생시킵니다. 주요 뇌파와 그 특징은 다음과 같습니다:</p>
+                <ul>
+                    <li data-i18n="info_delta_desc_short"><strong>델타파 (0.5-4Hz):</strong> 깊은 수면, 무의식 상태와 관련. 신체 회복에 중요.</li>
+                    <li data-i18n="info_theta_desc_short"><strong>세타파 (4-8Hz):</strong> 얕은 수면, 깊은 명상, 창의적 영감과 관련.</li>
+                    <li data-i18n="info_alpha_desc_short"><strong>알파파 (8-13Hz):</strong> 편안한 각성, 안정된 상태, 스트레스 해소와 관련.</li>
+                    <li data-i18n="info_beta_desc_short"><strong>베타파 (13-30Hz):</strong> 일반적인 각성, 집중, 인지 활동, 문제 해결과 관련.</li>
+                    <li data-i18n="info_gamma_desc_short"><strong>감마파 (30Hz 이상):</strong> 고도의 인지 기능, 정보 처리, 학습, 기억과 관련.</li>
+                </ul>
+                <p data-i18n="info_scientific_basis_note">뇌파 동조의 효과에 대해서는 다양한 연구가 진행 중이며, 일부 연구에서는 긍정적인 결과가 보고되고 있습니다. 하지만 개인차가 있을 수 있으며, 의학적 치료를 대체할 수는 없습니다. <a href="#references" class="info-link" data-i18n="info_see_references_link">관련 연구 및 참고 자료 보기</a></p>
+            </article>
+
+            <hr class="info-divider">
+
+            <!-- FAQ 섹션 -->
+            <div class="faq-section">
+                <h3 class="section-title" data-i18n="info_faq_title">자주 묻는 질문 (FAQ)</h3>
+                <div class="faq-item">
+                    <h4 data-i18n="faq_q1_title"><i class="fas fa-question-circle faq-icon"></i> Q. HZMindCare는 어떻게 사용하나요?</h4>
+                    <p data-i18n="faq_q1_answer">A. 원하는 효과에 맞는 추천 사운드를 선택하거나, '직접 만들기'를 통해 원하는 주파수를 설정하고 재생 버튼을 누르세요. 헤드폰이나 이어폰을 착용하시면 바이노럴 비트 효과를 더 잘 경험하실 수 있습니다. 전체 볼륨과 백색 소음 믹스도 조절해보세요.</p>
+                </div>
+                <div class="faq-item">
+                    <h4 data-i18n="faq_q2_title"><i class="fas fa-shield-alt faq-icon"></i> Q. 바이노럴 비트는 정말 효과가 있나요? 안전한가요?</h4>
+                    <p data-i18n="faq_q2_answer">A. 많은 사용자들이 바이노럴 비트를 통해 이완, 집중력 향상, 수면 개선 등의 효과를 경험했다고 보고하고 있으며, 관련 연구도 꾸준히 발표되고 있습니다. 일반적으로 적절한 볼륨으로 사용할 경우 안전한 것으로 알려져 있으나, 간질 병력이 있거나 특정 건강 상태에 있는 분들은 사용 전 전문가와 상담하는 것이 좋습니다. HZMindCare는 의료 기기나 치료법이 아니며, 개인의 경험은 다를 수 있습니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h4 data-i18n="faq_q3_title"><i class="fas fa-headphones faq-icon"></i> Q. 어떤 주파수를 들어야 할지 모르겠어요.</h4>
+                    <p data-i18n="faq_q3_answer">A. '추천 사운드' 목록에서 각 프리셋의 이름과 기대 효과를 참고하여 선택해보세요. 예를 들어, 잠자기 전에는 '델타파', 명상이나 휴식 시에는 '알파파'나 '세타파', 집중이 필요할 때는 '베타파'를 시도해볼 수 있습니다. 다양한 주파수를 경험해보면서 자신에게 맞는 것을 찾아보는 것이 중요합니다.</p>
+                </div>
+                <!-- 추가적인 FAQ 항목들 -->
+            </div>
+
+            <hr class="info-divider">
+
+            <!-- 참고 자료 및 면책 조항 -->
+            <article id="references" class="info-article">
+                <h3 class="section-title" data-i18n="info_references_title">참고 자료 및 연구 (예시)</h3>
+                <p data-i18n="info_references_intro">뇌파 동조 및 관련 주파수 효과에 대한 더 자세한 정보는 다음 자료들을 참고하실 수 있습니다. (아래 목록은 예시이며, 실제 관련 연구 논문이나 신뢰할 수 있는 출처로 업데이트해야 합니다.)</p>
+                <ul>
+                    <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4428073/" target="_blank" rel="noopener noreferrer" class="info-link">Oster, G. (1973). Auditory beats in the brain. Scientific American, 229(4), 94-103.</a> (바이노럴 비트 고전 연구)</li>
+                    <li><a href="https://www.frontiersin.org/articles/10.3389/fnins.2017.00425/full" target="_blank" rel="noopener noreferrer" class="info-link">Delta Wave Sleep and Cognitive Performance: A Review.</a></li>
+                    <!-- (추가적인 관련 연구 링크들...) -->
+                </ul>
+                <h3 data-i18n="info_important_notice_title_detail" style="margin-top:20px;">중요 안내 (Disclaimer)</h3>
+                <p data-i18n="info_disclaimer_text_detail">본 웹사이트에서 제공하는 정보와 사운드는 오락 및 자기 계발 목적으로 제작되었으며, 의학적 진단, 치료 또는 전문적인 조언을 대체할 수 없습니다. 건강상의 문제가 있거나 우려되는 경우 반드시 의사 또는 자격을 갖춘 의료 전문가와 상담하시기 바랍니다. HZMindCare 사용으로 인해 발생하는 모든 결과에 대한 책임은 사용자 본인에게 있습니다.</p>
+            </article>
+        </section>
+        <!-- ================================================== -->
+        <!-- ========= 하단 상세 정보 섹션 끝 ========= -->
+        <!-- ================================================== -->
+
         <footer>
-            <p data-i18n="footer_copyright_dynamic">© HZMindCare. 문의: mcohoneymoon@gmail.com. 의료적 조언이나 치료를 대체할 수 없습니다.</p>
+            <p data-i18n="footer_copyright_dynamic_new">© 2024 HZMindCare. All Rights Reserved. HZMindCare는 세계 최초의 사용자 맞춤형 HZ 사운드 경험을 제공하기 위해 노력합니다. 무단 복제 및 배포를 금합니다. 문의: mcohoneymoon@gmail.com. 의료적 조언이나 치료를 대체할 수 없습니다.</p>
         </footer>
-    </div>
+    </div> <!-- 기존 div.container 닫기 -->
 
     <script src="script.js"></script>
 </body>
