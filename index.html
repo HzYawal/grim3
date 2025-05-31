@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko"> <!-- JS가 이 부분을 감지된 언어(ko 또는 en)로 변경합니다. -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- i18next 라이브러리 -->
+    <script src="https://unpkg.com/i18next/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend/i18nextHttpBackend.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js"></script>
+
+    <title data-i18n="site_title">HZMindCare</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google AdSense 코드 -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4680386996866067"
+         crossorigin="anonymous"></script>
+    <!-- Google AdSense 코드 끝 -->
+
+    <!-- 파비콘 (실제 favicon.ico 파일이 루트에 있어야 합니다) -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 data-i18n="site_title">HZMindCare</h1>
+            <p data-i18n="site_subtitle">당신의 마음에 맞는 주파수를 찾아보세요.</p>
+            <div class="lang-buttons">
+                <button id="lang-en" data-i18n="lang_en_button">English</button>
+                <button id="lang-ko" data-i18n="lang_ko_button">한국어</button>
+            </div>
+        </header>
+
+        <main>
+            <section class="controls-section">
+                <h2 data-i18n="section_title_setup">사운드 선택 및 설정</h2>
+
+                <div class="control-group">
+                    <label for="goal-select" data-i18n="label_recommended_sound">추천 사운드:</label>
+                    <select id="goal-select">
+                        <!-- 옵션은 JavaScript로 채워집니다 -->
+                    </select>
+                </div>
+
+                <div id="manual-settings" style="display: none;">
+                    <h3 data-i18n="label_direct_creation_title">직접 만들기</h3>
+                    <div class="control-group">
+                        <label for="manual-type-select" data-i18n="label_sound_type">소리 유형:</label>
+                        <select id="manual-type-select">
+                            <option value="binaural" data-i18n="option_binaural">바이노럴 비트 (두뇌파 동조)</option>
+                            <option value="single_tone" data-i18n="option_single_tone">단일 톤 (특정 주파수)</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label id="target-freq-label" for="target-freq-input"
+                               data-i18n-text-binaural="label_target_freq_binaural"
+                               data-i18n-text-single="label_target_freq_single_tone"
+                               data-i18n-placeholder-binaural="placeholder_target_freq_binaural"
+                               data-i18n-placeholder-single="placeholder_target_freq_single_tone">원하는 효과 주파수 (Hz):</label>
+                        <input type="number" id="target-freq-input" value="3" min="0.1" max="10000" step="0.1">
+                    </div>
+                    <div class="control-group" id="base-tone-group">
+                        <label id="base-tone-label" for="base-tone-input" data-i18n="label_base_tone">기본음 높이 (Hz):</label>
+                        <input type="number" id="base-tone-input" value="100" min="20" max="1000" step="1">
+                        <small data-i18n="label_base_tone_desc">(바이노럴 비트 생성 시 사용, 낮을수록 부드러움)</small>
+                    </div>
+                </div>
+
+
+                <div class="control-group">
+                    <label for="master-volume" data-i18n="label_master_volume">전체 볼륨:</label>
+                    <input type="range" id="master-volume" min="0" max="1" step="0.01" value="0.5">
+                </div>
+
+                <div class="control-group">
+                    <label for="white-noise-toggle" data-i18n="label_white_noise_mix">백색 소음 믹스:</label>
+                    <input type="checkbox" id="white-noise-toggle">
+                    <label for="white-noise-volume" style="margin-left: 10px;" data-i18n="label_white_noise_volume">백색 소음 볼륨:</label>
+                    <input type="range" id="white-noise-volume" min="0" max="0.5" step="0.01" value="0.05" disabled>
+                </div>
+
+                <div class="player-actions">
+                    <button id="play-pause-button" data-i18n="button_play">재생</button>
+                </div>
+            </section>
+
+            <!-- 오디오 시각화 Canvas (크기 약간 조정) -->
+            <section class="visualizer-section" style="margin-top: 20px; margin-bottom: 10px; display: none;">
+                <canvas id="audioVisualizer" width="600" height="120"></canvas>
+            </section>
+
+            <section class="info-section">
+                <h2 data-i18n="section_title_current_info">현재 재생 정보</h2>
+                <p id="current-sound-info" data-i18n="info_waiting_selection">듣고 싶은 사운드를 선택하거나 직접 만들어 재생하세요.</p>
+                <p id="sound-effect-info"></p>
+                <div id="scientific-source" class="source-tooltip" style="display:none;">
+                    <span class="tooltip-text" data-i18n="tooltip_source_prefix_default">출처 정보가 여기에 표시됩니다.</span>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p data-i18n="footer_copyright_dynamic">© HZMindCare. 문의: mcohoneymoon@gmail.com. 의료적 조언이나 치료를 대체할 수 없습니다.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
