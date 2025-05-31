@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const visualizerCanvas = document.getElementById('audioVisualizer');
     let canvasCtx;
     let animationFrameId;
-    let currentVisualizerFrequency = 0; // 시각화에 사용될 현재 주파수
-    let visualizerTime = 0; // 웨이브 애니메이션 시간 변수
+    let currentVisualizerFrequency = 0;
+    let visualizerTime = 0;
 
 
     // --- 오디오 변수 및 프리셋 데이터 ---
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (visualizerSection) visualizerSection.style.display = 'none';
     }
 
-    // ===== 시각화 함수 (부드러운 곡선 스타일) =====
+    // ===== 시각화 함수 (주파수에 따른 변화 강화) =====
     function drawSimulatedWaveform() {
         if (!canvasCtx || !visualizerCanvas || !isPlaying) {
             if (animationFrameId) cancelAnimationFrame(animationFrameId);
@@ -145,25 +145,37 @@ document.addEventListener('DOMContentLoaded', () => {
         canvasCtx.beginPath();
         canvasCtx.moveTo(0, centerY);
 
+        const freq = Math.max(0.1, currentVisualizerFrequency); // 주파수가 0 이하가 되지 않도록 최소값 설정
+
+        // 1. 파장 (waveLengthFactor) - 주파수가 높을수록 파장이 짧아져 촘촘해짐
         let waveLengthFactor;
-        const freq = currentVisualizerFrequency;
-
-        if (freq <= 0) {
-            waveLengthFactor = canvasWidth / 2;
-        } else if (freq < 5) {
-            waveLengthFactor = canvasWidth / (freq * 0.25 + 0.5);
-        } else if (freq < 20) {
-            waveLengthFactor = canvasWidth / (freq * 0.4 + 1);
-        } else if (freq < 100) {
-            waveLengthFactor = canvasWidth / (freq * 0.7 + 3);
-        } else if (freq < 300) {
-            waveLengthFactor = canvasWidth / (freq * 0.9 + 15);
-        } else {
-            waveLengthFactor = Math.max(15, canvasWidth / (freq * 1.0 + 30));
+        if (freq < 1) { // 매우 낮은 주파수 (0.1 ~ 0.9 Hz) - 거의 직선 또는 매우 긴 1~2개 파동
+            waveLengthFactor = canvasWidth / (freq * 0.2 + 0.1); // 0.1Hz일때 0.03 -> canvasW / 0.03 (매우 큼)
+        } else if (freq < 10) { // 낮은 주파수 (1 ~ 9 Hz) - 화면에 주파수 값만큼의 파동이 보이도록 시도
+            waveLengthFactor = canvasWidth / (freq * 0.8); // 예: 3Hz면 화면에 약 2.4개 파동
+        } else if (freq < 50) { // 중간 주파수 (10 ~ 49 Hz)
+            waveLengthFactor = canvasWidth / (freq * 0.5 + 5); // 10Hz면 약 10개, 49Hz면 약 20개 파동
+        } else if (freq < 200) { // 높은 주파수 (50 ~ 199 Hz)
+            waveLengthFactor = canvasWidth / (freq * 0.2 + 20); // 50Hz면 약 16개, 199Hz면 약 20개 (증가폭 완만)
+        } else { // 매우 높은 주파수 (200 Hz 이상)
+            waveLengthFactor = Math.max(8, canvasWidth / (freq * 0.1 + 40)); // 최소 8px 파장, 최대 파동 개수 제한
         }
-        waveLengthFactor = Math.max(15, Math.min(canvasWidth / 1.2, waveLengthFactor));
+        // 최종 파장값 제한 (너무 크거나 작지 않게)
+        waveLengthFactor = Math.max(8, Math.min(canvasWidth * 2, waveLengthFactor));
 
-        visualizerTime += 0.04;
+
+        // 2. 흐르는 속도 (timeIncrement) - 주파수에 따라 다르게
+        let timeIncrement;
+        if (freq < 10) { // 저주파: 느리게
+            timeIncrement = 0.005 + (freq * 0.002); // 0.0052 ~ 0.023
+        } else if (freq < 100) { // 중주파: 중간 속도
+            timeIncrement = 0.02 + (freq * 0.0002); // 0.022 ~ 0.0398
+        } else { // 고주파: 빠르게
+            timeIncrement = 0.035 + (freq * 0.00005); // 0.04 ~ (200Hz면 0.045)
+        }
+        timeIncrement = Math.min(0.06, Math.max(0.005, timeIncrement)); // 속도 상하한 설정
+
+        visualizerTime += timeIncrement;
 
         for (let x = 0; x < canvasWidth; x++) {
             const y = centerY + amplitude * Math.sin((x / waveLengthFactor) * (Math.PI * 2) + visualizerTime);
@@ -174,11 +186,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===== 시각화 함수 끝 =====
 
     function startVisualizer(frequency) {
-        currentVisualizerFrequency = frequency > 0 ? frequency : 1;
+        currentVisualizerFrequency = frequency > 0 ? frequency : 0.1; // 최소 주파수 0.1로 설정
         console.log("Starting visualizer with frequency:", currentVisualizerFrequency);
         if (isPlaying && canvasCtx) {
             if (animationFrameId) cancelAnimationFrame(animationFrameId);
-            visualizerTime = 0;
+            visualizerTime = 0; // 새 주파수 시작 시 시간 초기화 (파형 시작 위치 동일하게)
             drawSimulatedWaveform();
         } else if (isPlaying && !canvasCtx) {
             console.warn("Canvas context not ready for visualizer.");
@@ -323,20 +335,20 @@ document.addEventListener('DOMContentLoaded', () => {
             effectInfoKey = preset.effectKey; sourceInfo = preset.source;
             if (manualType === "binaural") {
                 leftFreq = baseToneVal; rightFreq = baseToneVal + targetFreq;
-                visualFreqToUse = baseToneVal;
+                visualFreqToUse = baseToneVal; // 바이노럴은 baseTone으로 시각화
                 displayInfoText = i18n.t('info_manual_binaural_format', { targetFreq: targetFreq.toFixed(2), baseTone: baseToneVal.toFixed(2) });
             } else {
                 leftFreq = targetFreq; rightFreq = targetFreq;
-                visualFreqToUse = targetFreq;
+                visualFreqToUse = targetFreq; // 단일톤은 해당 주파수로 시각화
                 displayInfoText = i18n.t('info_manual_single_tone_format', { targetFreq: targetFreq.toFixed(2) });
             }
         } else {
-            if (preset.effectHz !== undefined) {
+            if (preset.effectHz !== undefined) { // 바이노럴 프리셋
                 leftFreq = preset.baseTone; rightFreq = preset.baseTone + preset.effectHz;
-                visualFreqToUse = preset.baseTone;
-            } else if (preset.singleHz !== undefined) {
+                visualFreqToUse = preset.baseTone; // 바이노럴은 baseTone으로 시각화
+            } else if (preset.singleHz !== undefined) { // 단일톤 프리셋
                 leftFreq = preset.singleHz; rightFreq = preset.singleHz;
-                visualFreqToUse = preset.singleHz;
+                visualFreqToUse = preset.singleHz; // 단일톤은 해당 주파수로 시각화
             }
             displayInfoText = i18n.t(preset.typeKey);
             effectInfoKey = preset.effectKey;
@@ -440,7 +452,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 displayInfoText = i18n.t('info_manual_single_tone_format', { targetFreq: targetFreq.toFixed(2) });
             }
         } else {
-            displayInfoText = preset.typeKey; // 키 자체를 전달 (updateInfoDisplay에서 t() 호출)
+            displayInfoText = preset.typeKey;
         }
         updateInfoDisplay(displayInfoText, preset.effectKey, preset.source);
     }
