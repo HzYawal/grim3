@@ -1,3 +1,4 @@
+/* ... (기존 body, container, header, controls-section 등 스타일은 이전과 동일하게 유지) ... */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: #121212;
@@ -17,7 +18,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     width: 100%;
-    max-width: 600px; /* canvas 너비를 600으로 했으므로, container도 최소 600 이상이 좋음 */
+    max-width: 760px;
 }
 
 header {
@@ -109,13 +110,12 @@ header p {
     margin-top: 3px;
 }
 
-/* --- Range Input Styling --- */
 .control-group input[type="range"] {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
     height: 8px;
-    background: #444; /* 기본 트랙 색상, JS로 채워지는 부분과 대비 */
+    background: #444;
     border-radius: 5px;
     outline: none;
     padding: 0;
@@ -132,7 +132,7 @@ header p {
     border-radius: 50%;
     border: 2px solid #bb86fc;
     cursor: pointer;
-    margin-top: -5px; /* thumb이 트랙 중앙에 오도록 조정 */
+    margin-top: -5px;
 }
 
 .control-group input[type="range"]::-moz-range-thumb {
@@ -143,8 +143,6 @@ header p {
     border: 2px solid #bb86fc;
     cursor: pointer;
 }
-/* --- Range Input Styling End --- */
-
 
 .player-actions {
     text-align: center;
@@ -167,7 +165,6 @@ header p {
     background-color: #a06cd5;
 }
 
-/* --- 오디오 시각화 Canvas 스타일 --- */
 .visualizer-section {
     background-color: #181818;
     padding: 10px;
@@ -178,12 +175,9 @@ header p {
 
 #audioVisualizer {
     display: block;
-    width: 100%; /* HTML에서 width를 600으로 지정했지만, CSS에서 100%로 하여 부모에 맞춤 */
-    /* height: 120px; HTML에서 height 지정 */
+    width: 100%;
     background-color: transparent;
 }
-/* --- 오디오 시각화 Canvas 스타일 끝 --- */
-
 
 .info-section {
     margin-top: 30px;
@@ -228,7 +222,7 @@ header p {
     z-index: 1;
     bottom: 125%;
     left: 50%;
-    margin-left: -110px; /* width의 절반 */
+    margin-left: -110px;
     opacity: 0;
     transition: opacity 0.3s;
 }
@@ -252,13 +246,198 @@ header p {
     margin-bottom: 10px;
 }
 
+/* ================================================== */
+/* ========= 하단 상세 정보 섹션 스타일 시작 ========= */
+/* ================================================== */
+.info-container {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 2px solid #444;
+}
+
+.info-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.info-header h2 {
+    font-size: 2.2em;
+    color: #e0e0e0;
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+
+.info-header p {
+    font-size: 1.1em;
+    color: #bb86fc;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-title {
+    font-size: 1.8em;
+    color: #bb86fc;
+    margin-top: 40px;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #555;
+    text-align: left;
+}
+.features-grid > .section-title,
+.faq-section > .section-title,
+#references > .section-title {
+    text-align: center;
+}
+
+
+.info-article, .features-grid, .faq-section {
+    margin-bottom: 50px;
+}
+
+.info-article p, .info-article li, .faq-item p {
+    line-height: 1.8;
+    color: #cccccc;
+    font-size: 1em;
+    margin-bottom: 1em;
+}
+.info-article strong, .info-article li strong {
+    color: #e0e0e0;
+}
+.info-article a.info-link, .faq-item a.info-link {
+    color: #87cefa;
+    text-decoration: none;
+}
+.info-article a.info-link:hover, .faq-item a.info-link:hover {
+    text-decoration: underline;
+    color: #add8e6;
+}
+.info-article ul {
+    list-style-type: disc;
+    padding-left: 25px;
+    margin-bottom: 1em;
+}
+.info-article ul li {
+    margin-bottom: 0.5em;
+}
+
+
+.info-image-container {
+    text-align: center;
+    margin: 25px 0;
+}
+.info-image {
+    max-width: 70%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #333;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.caption {
+    font-size: 0.85em;
+    color: #aaa;
+    margin-top: 8px;
+    font-style: italic;
+}
+
+/* 기능 및 장점 그리드 스타일 (Font Awesome 아이콘 적용) */
+.features-grid {
+    /* display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; */ /* 그리드 레이아웃 옵션 */
+}
+.feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    border-left: 5px solid #bb86fc;
+    transition: transform 0.2s ease-in-out;
+}
+.feature-item:hover {
+    transform: translateY(-3px);
+}
+.feature-icon-fa { /* Font Awesome 아이콘 스타일 */
+    margin-right: 20px;
+    color: #bb86fc; /* 아이콘 색상 */
+    width: 40px; /* 아이콘 영역 너비 고정 (정렬 도움) */
+    text-align: center; /* 아이콘 중앙 정렬 */
+    flex-shrink: 0;
+}
+.feature-item h4 {
+    font-size: 1.25em;
+    color: #e0e0e0;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+.feature-item p {
+    font-size: 0.95em;
+    color: #b0b0b0;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+
+/* FAQ 스타일 (Font Awesome 아이콘 적용) */
+.faq-section .faq-item {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #444;
+}
+.faq-section .faq-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.faq-item h4 {
+    font-size: 1.2em;
+    color: #bb86fc;
+    margin-bottom: 10px;
+    display: flex; /* 아이콘과 텍스트 정렬 위해 */
+    align-items: center;
+}
+.faq-icon { /* FAQ 질문 앞 아이콘 */
+    margin-right: 10px;
+    font-size: 0.9em; /* 제목보다 약간 작게 */
+    color: #e0e0e0; /* 아이콘 색상 */
+}
+.faq-item p {
+    margin-left: 25px; /* 아이콘 너비만큼 들여쓰기 (조정 필요) */
+}
+
+/* 참고자료 */
+#references ul {
+    list-style-type: decimal;
+    padding-left: 25px;
+}
+#references li {
+    margin-bottom: 10px;
+}
+#references li a {
+    color: #87cefa;
+}
+
+
+.info-divider {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(85, 85, 85, 0.75), rgba(0, 0, 0, 0));
+    margin: 60px 0;
+}
+/* ================================================== */
+/* ========= 하단 상세 정보 섹션 스타일 끝 ========= */
+/* ================================================== */
+
 footer {
     text-align: center;
-    margin-top: 30px;
-    padding-top: 15px;
+    margin-top: 50px;
+    padding-top: 20px;
     border-top: 1px solid #333;
     font-size: 0.8em;
     color: #777;
+}
+footer p {
+    margin-bottom: 5px;
 }
 footer a {
     color: #bb86fc;
@@ -266,4 +445,9 @@ footer a {
 }
 footer a:hover {
     text-decoration: underline;
+}
+footer p[data-i18n="footer_copyright_dynamic_new"] {
+    font-size: 0.9em;
+    color: #999;
+    line-height: 1.5;
 }
